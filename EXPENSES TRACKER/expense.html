@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="header">
+    <p class="m-0">Expence<br>Tracker
+      <img src="IMAGES/Spending.jpg" alt="" width="50px">
+    </p>
+  </div>
+
+  <div class="expense-form">
+    <div class="form-floating inputs">
+      <input type="text" class="form-control amountinput" id="floatingInput" placeholder="Amount">
+      <label for="floatingInput">Amount</label>
+    </div>
+    <select class="form-select inputs transactiontype" aria-label="Default select example">
+      <option selected>Transaction Type</option>
+      <option value="Expense">Debit</option>
+      <option value="Income">Credit</option>
+    </select>
+    <div class="form-floating inputs">
+      <input type="date" class="form-control dateinput" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Date</label>
+    </div>
+    <button class="add-btn" onclick="addRow()">+</button>
+  </div>
+
+  <div class="cards mt-5">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">TOTAL INCOME
+          <img src="IMAGES/income.jpg" alt="" width="20px">
+        </h5>
+        <h1 class="m-0">
+          <span id="totalincome">₹ 0</span>
+        </h1>
+      </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body" style="background-color: rgb(252, 119, 70);">
+        <h5 class="card-title">TOTAL EXPENSE
+          <img src="IMAGES/Spending.jpg" alt="" width="25px">
+        </h5>
+        <h1 class="m-0">
+          <span id="totalexpense">₹ 0</span>
+        </h1>
+      </div>
+    </div>
+    <div class="card " style="width: 18rem;">
+      <div class="card-body" style="background-color:lightgreen;" >
+        <h5 class="card-title">Balance
+          <img src="IMAGES/Balance.jpg" alt="" width="25px">
+        </h5>
+        <h1 class="m-0">
+          <span id="totalbalance">₹ 0</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <table class="transaction-table" id="table">
+    <tr class="header-row">
+      <th>Amount</th>
+      <th>Transaction Type</th>
+      <th>Transaction Date</th>
+      <th>Delete</th>
+    </tr>
+  </table>
+
+
+
+
+  <style>
+    body {
+      font-family: "Comfortaa", sans-serif;
+    }
+
+    .header {
+      background: lightcoral;
+      color: white;
+      padding-left: 30px;
+      font-size: 25px;
+    }
+
+    .expense-form {
+      display: flex;
+      justify-content: space-around;
+      width: 80%;
+      margin: auto;
+      box-shadow: 0px 5px 10px rgb(244, 137, 137);
+      margin-top: 20px;
+      padding-top: 15px;
+      padding-bottom: 20px;
+    }
+
+    .add-btn {
+      background: lightcoral;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      font-size: x-large;
+      font-weight: 600;
+      color: white;
+      border-color: rgb(245, 51, 51);
+    }
+
+    .inputs {
+      width: 30%;
+    }
+
+    .cards {
+      display: flex;
+      width: 80%;
+      margin: auto;
+      justify-content: space-between;
+    }
+
+    .card {
+      background-color: lightcoral;
+      height: 150px;
+      border: 0px;
+    }
+
+    .card-body {
+      color: white;
+    }
+
+    .transaction-table {
+      width: 80%;
+      margin: auto;
+      border: 1px solid black;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 15px;
+      font-size: 20px;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-row {
+      background: lightcoral;
+
+
+    }
+
+    .header-row th {
+      padding: 15px 0px;
+    }
+
+    .delete-button {
+      background: lightgray;
+      border: 1px solid black;
+    }
+  </style>
+
+
+
+  <script>
+
+    let table = document.getElementById('table')
+    console.log("Table:", table);
+
+    function deleteRow(row) {
+      console.log('hi from deleteRow function')
+      console.log(row);
+      row.remove();
+
+    }
+
+    function addRow() {
+      let Date = document.getElementsByClassName('dateinput')[0].value
+      let Amount = document.getElementsByClassName('amountinput')[0].value
+      let transactiontype = document.getElementsByClassName('transactiontype')[0].value
+      console.log("Line 216:", Date, Amount, transactiontype);
+
+      let row = document.createElement('tr')
+
+      let Amountcell = document.createElement('td')
+      Amountcell.innerText = Amount;
+
+      let transactioncell = document.createElement('td')
+      transactioncell.innerText = transactiontype;
+
+      let Datecell = document.createElement('td')
+      Datecell.innerText = Date;
+
+      let Bincell = document.createElement('td')
+
+      let deletebutton = document.createElement('Button')
+
+      let Binimage = document.createElement('img')
+      Binimage.src = 'IMAGES/Delete.jpg'
+      Binimage.style.width = '25px'
+      Binimage.style.height = '25px'
+      deletebutton.appendChild(Binimage)
+      deletebutton.onclick = () => deleteRow(row)
+
+      deletebutton.classList.add('delete-button')
+
+      Bincell.appendChild(deletebutton);
+
+      row.appendChild(Amountcell)
+      row.appendChild(transactioncell)
+      row.appendChild(Datecell)
+      row.appendChild(Bincell)
+
+
+      table.appendChild(row)
+
+      let totalIncomeElement = document.getElementById('totalincome');
+      let totalExpenseElement = document.getElementById('totalexpense');
+      let totalBalanceElement = document.getElementById('totalbalance');
+
+      if (totalIncomeElement && totalExpenseElement && totalBalanceElement) {
+        let totalIncome = parseFloat(totalIncomeElement.innerText.replace("₹", "").trim()) || 0;
+        let totalExpense = parseFloat(totalExpenseElement.innerText.replace("₹", "").trim()) || 0;
+        let totalBalance = parseFloat(totalBalanceElement.innerText.replace("₹", "").trim()) || 0;
+        let amountValue = parseFloat(Amount) || 0;
+
+        if (transactiontype === "Income") {
+          totalIncome += amountValue;
+        } else if (transactiontype === "Expense") {
+          totalExpense += amountValue;
+        }
+
+        totalBalance = totalIncome - totalExpense;
+
+
+        totalIncomeElement.innerText = `₹ ${totalIncome}`;
+        totalExpenseElement.innerText = `₹ ${totalExpense}`;
+        totalBalanceElement.innerText = `₹ ${totalBalance}`;
+
+
+
+
+
+        console.log('Line 224:', totalIncome, totalExpense, totalBalance)
+
+        console.log('Line 202:', Amountcell, transactioncell, Datecell)
+
+
+      }
+    }
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
